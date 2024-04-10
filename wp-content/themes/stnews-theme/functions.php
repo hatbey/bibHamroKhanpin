@@ -308,15 +308,17 @@ function listcatagory($catid_n, $limit, $offset, $colorstyle)
 {
     $subcategories_n = get_categories('&child_of=' . $catid_n . '&hide_empty');
     foreach ($subcategories_n as $p) {
-        $d[] = $p->cat_ID;
+        $d = [];
+
+    $a = implode(',', $d);
     }
-    $a = implode("','", $d);
     $categoryid = (!empty($a)) ? $a : $catid_n;
     $args = array('cat' => ($categoryid), 'orderby' => 'date', 'posts_per_page' => $limit, 'order' => 'DESC',    'offset' => $offset);
     $the_query = new WP_Query($args);
     if ($the_query->have_posts()) :
         while ($the_query->have_posts()) : $the_query->the_post();
             echo $output = '
+    
 <div class="col-lg-6 col-md-12 col-sm-12">
 <div class="nbo-st">
 <div class="inner-box">
@@ -340,7 +342,7 @@ function listcatagory($catid_n, $limit, $offset, $colorstyle)
 </div>
 </div>
 ';
-        endwhile;
+     endwhile;
     endif;
 }
 function sportscatagory($catid_n, $limit, $offset, $colorstyle)
